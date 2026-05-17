@@ -7,11 +7,11 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg'],
+      includeAssets: ['app_icon.svg'],
       manifest: {
-        name: 'Berber',
-        short_name: 'Berber',
-        description: 'Berber dükkanı sıra yönetimi',
+        name: 'Kuaförüm',
+        short_name: 'Kuaförüm',
+        description: 'Kuaför dükkanı sıra yönetimi',
         theme_color: '#121212',
         background_color: '#121212',
         display: 'standalone',

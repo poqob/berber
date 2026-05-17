@@ -4,9 +4,11 @@ import ActiveChairCard from './ActiveChairCard.vue'
 import QueueList from './QueueList.vue'
 import QuickAddBottomSheet from './QuickAddBottomSheet.vue'
 import HistoryView from './HistoryView.vue'
+import SettingsPanel from './SettingsPanel.vue'
 
 const isLight = ref(false)
 const activeTab = ref<'queue' | 'history'>('queue')
+const showSettings = ref(false)
 
 onMounted(() => {
   try {
@@ -38,16 +40,25 @@ function updateThemeColor(light: boolean) {
   <div class="min-h-dvh bg-bg p-4 pb-24 transition-colors">
     <header class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-primary">Berber</h1>
+        <h1 class="text-2xl font-bold text-primary">Kuaförüm</h1>
         <p class="text-sm text-text-muted">Sıra Yönetimi</p>
       </div>
-      <button
-        @click="toggleTheme"
-        class="touch-target w-10 h-10 flex items-center justify-center rounded-xl bg-surface text-text-muted hover:text-primary transition-colors text-lg"
-        :title="isLight ? 'Koyu tema' : 'Aydınlık tema'"
-      >
-        {{ isLight ? '🌙' : '☀️' }}
-      </button>
+      <div class="flex items-center gap-2">
+        <button
+          @click="toggleTheme"
+          class="touch-target w-10 h-10 flex items-center justify-center rounded-xl bg-surface text-text-muted hover:text-primary transition-colors text-lg"
+          :title="isLight ? 'Koyu tema' : 'Aydınlık tema'"
+        >
+          {{ isLight ? '🌙' : '☀️' }}
+        </button>
+        <button
+          @click="showSettings = true"
+          class="touch-target w-10 h-10 flex items-center justify-center rounded-xl bg-surface text-text-muted hover:text-primary transition-colors text-lg"
+          title="Ayarlar"
+        >
+          ⚙
+        </button>
+      </div>
     </header>
 
     <div class="flex gap-2 mb-6">
@@ -94,5 +105,7 @@ function updateThemeColor(light: boolean) {
     <template v-else>
       <HistoryView />
     </template>
+
+    <SettingsPanel v-model:show="showSettings" />
   </div>
 </template>
