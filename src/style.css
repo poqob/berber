@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #121212;
+  --color-surface: #1E1E1E;
+  --color-text-main: #ffffff;
+  --color-text-muted: #9CA3AF;
+  --color-border: #374151;
+  --color-chip-border: #4B5563;
+  --color-overlay: rgba(0, 0, 0, 0.6);
+}
+
+.light {
+  --color-bg: #F5F5F5;
+  --color-surface: #FFFFFF;
+  --color-text-main: #111827;
+  --color-text-muted: #6B7280;
+  --color-border: #E5E7EB;
+  --color-chip-border: #D1D5DB;
+  --color-overlay: rgba(0, 0, 0, 0.3);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    min-height: 100dvh;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .touch-target {
+    @apply min-h-touch min-w-touch;
+  }
+
+  .card-surface {
+    @apply bg-surface rounded-xl p-4;
+  }
+
+  .btn-primary {
+    @apply touch-target bg-primary text-black font-bold rounded-xl transition-transform active:scale-95 disabled:opacity-50;
+  }
+
+  .btn-destructive {
+    @apply touch-target bg-destructive text-white font-bold rounded-xl transition-transform active:scale-95;
+  }
+
+  .btn-success {
+    @apply touch-target bg-success text-white font-bold rounded-xl transition-transform active:scale-95;
+  }
+
+  .text-ellipsis {
+    @apply truncate;
+  }
+}
