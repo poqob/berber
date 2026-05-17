@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import ActiveChairCard from './ActiveChairCard.vue'
 import QueueList from './QueueList.vue'
 import QuickAddBottomSheet from './QuickAddBottomSheet.vue'
@@ -9,10 +9,34 @@ import SettingsPanel from './SettingsPanel.vue'
 const isLight = ref(false)
 const activeTab = ref<'queue' | 'history'>('queue')
 const showSettings = ref(false)
+const profileName = ref('')
+
+const PROFILE_KEY = 'kuaförüm:profile'
+const THEME_KEY = 'berber:theme'
+
+function loadProfile() {
+  try {
+    const raw = localStorage.getItem(PROFILE_KEY)
+    if (raw) {
+      const p = JSON.parse(raw)
+      profileName.value = p.name ?? ''
+    }
+  } catch { /* ignore */ }
+}
+
+const greeting = computed(() => {
+  const hour = new Date().getHours()
+  let msg: string
+  if (hour < 12) msg = 'Günaydın'
+  else if (hour < 18) msg = 'İyi günler'
+  else msg = 'İyi akşamlar'
+  return profileName.value ? `${msg}, ${profileName.value}` : 'Sıra Yönetimi'
+})
 
 onMounted(() => {
+  loadProfile()
   try {
-    const saved = localStorage.getItem('berber:theme')
+    const saved = localStorage.getItem(THEME_KEY)
     if (saved === 'light') {
       isLight.value = true
       document.documentElement.classList.add('light')
@@ -41,7 +65,7 @@ function updateThemeColor(light: boolean) {
     <header class="mb-6 flex items-center justify-between">
       <div>
         <h1 class="text-2xl font-bold text-primary">Kuaförüm</h1>
-        <p class="text-sm text-text-muted">Sıra Yönetimi</p>
+        <p class="text-sm text-text-muted">{{ greeting }}</p>
       </div>
       <div class="flex items-center gap-2">
         <button
@@ -106,6 +130,6 @@ function updateThemeColor(light: boolean) {
       <HistoryView />
     </template>
 
-    <SettingsPanel v-model:show="showSettings" />
+    <SettingsPanel v-model:show="showSettings" @close="loadProfile" />
   </div>
 </template>

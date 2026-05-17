@@ -9,6 +9,7 @@ interface Profile {
   shop: string
 }
 
+const emit = defineEmits<{ (e: 'close'): void }>()
 const profile = ref<Profile>({ photo: '', name: '', shop: '' })
 const show = defineModel<boolean>('show', { required: true })
 
@@ -52,14 +53,14 @@ function openContact() {
   <Teleport to="body">
     <Transition name="panel">
       <div v-if="show" class="fixed inset-0 z-50 flex justify-end">
-        <div class="absolute inset-0 bg-overlay" @click="show = false" />
+          <div class="absolute inset-0 bg-overlay" @click="show = false; emit('close')" />
 
         <div class="relative w-80 max-w-[85vw] h-full bg-surface shadow-2xl overflow-y-auto">
           <div class="p-5">
             <div class="flex items-center justify-between mb-6">
               <h2 class="text-lg font-bold text-text-main">Ayarlar</h2>
               <button
-                @click="show = false"
+                @click="show = false; emit('close')"
                 class="touch-target w-9 h-9 flex items-center justify-center rounded-lg bg-bg text-text-muted text-lg"
               >✕</button>
             </div>
