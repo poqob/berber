@@ -39,8 +39,8 @@ function clearPhoto() {
 
 const logo = computed(() =>
   document.documentElement.classList.contains('light')
-    ? '/dagsolution-light-logo.png'
-    : '/dagsolution-logo.png'
+    ? '/dagsolution-logo.png'
+    : '/dagsolution-light-logo.png'
 )
 
 function openContact() {
@@ -120,6 +120,7 @@ function openContact() {
                   alt="dagsolution"
                   class="h-8 w-auto"
                 />
+                <span class="text-sm font-medium text-text-main">Dagsolution</span>
               </button>
 
               <p class="text-xs text-text-muted text-center pt-2">Sürüm 1.0.0</p>
