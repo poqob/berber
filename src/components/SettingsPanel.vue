@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 const PROFILE_KEY = 'kuaförüm:profile'
 
@@ -37,8 +37,14 @@ function clearPhoto() {
   profile.value.photo = ''
 }
 
+const logo = computed(() =>
+  document.documentElement.classList.contains('light')
+    ? '/dagsolution-light-logo.png'
+    : '/dagsolution-logo.png'
+)
+
 function openContact() {
-  window.open('https://www.dagsolution.com/#contact', '_blank')
+  window.open('https://www.dagsolution.com', '_blank')
 }
 </script>
 
@@ -107,14 +113,13 @@ function openContact() {
               <p class="text-sm font-semibold text-text-muted">Geliştirici</p>
               <button
                 @click="openContact"
-                class="w-full touch-target bg-bg rounded-xl p-4 flex items-center gap-3 hover:ring-1 hover:ring-primary transition-all"
+                class="w-full touch-target bg-bg rounded-xl p-4 flex items-center justify-center hover:ring-1 hover:ring-primary transition-all"
               >
                 <img
-                  src="/dagsolution-logo.png"
+                  :src="logo"
                   alt="dagsolution"
                   class="h-8 w-auto"
                 />
-                <span class="text-sm font-medium text-text-main">dagsolution.com</span>
               </button>
 
               <p class="text-xs text-text-muted text-center pt-2">Sürüm 1.0.0</p>
